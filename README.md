@@ -1,0 +1,2 @@
+# jp_politician_database
+日本の政治家役職データの可視化サイト
