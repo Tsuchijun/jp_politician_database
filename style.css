@@ -1,0 +1,774 @@
+/* style.css */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Meiryo, sans-serif;
+    margin: 0; 
+    padding: 20px; 
+    background-color: #f9f9f9;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; 
+    gap: 15px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    padding: 10px 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* --- 追加: ヘッダー中央（フィルター） --- */
+.header-center {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.main-filter-group {
+    display: flex;
+    gap: 5px;
+}
+
+.main-filter-btn {
+    padding: 6px 12px;
+    font-size: 13px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.main-filter-btn:hover {
+    background-color: #f0f0f0;
+}
+
+.main-filter-btn.active {
+    background-color: #333;
+    color: #fff;
+    border-color: #333;
+}
+
+#party-select {
+    padding: 5px 10px;
+    font-size: 13px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+}
+/* ----------------------------------- */
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+h1 {
+    margin: 0;
+    font-size: 20px;
+}
+
+/* 検索ボックス */
+.search-container {
+    position: relative;
+}
+#search-input {
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 200px;
+}
+.search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    max-height: 300px;
+    overflow-y: auto;
+    display: none; 
+    z-index: 3000;
+}
+.search-result-item {
+    padding: 8px 10px;
+    cursor: pointer;
+    font-size: 14px;
+    border-bottom: 1px solid #f0f0f0;
+}
+.search-result-item:hover {
+    background-color: #f0f8ff;
+    color: #007bff;
+}
+
+/* ズームコントロール */
+.zoom-controls {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background-color: #f0f0f0;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+.zoom-label {
+    font-size: 12px;
+    color: #555;
+    margin-right: 5px;
+}
+.zoom-btn {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 0;
+}
+.zoom-btn:hover {
+    background-color: #e0e0e0;
+}
+#btn-zoom-reset {
+    width: auto;
+    padding: 0 5px;
+    font-size: 11px;
+}
+
+/* 総合ランキングボタン */
+.ranking-btn {
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.ranking-btn:hover {
+    background-color: #0056b3;
+}
+
+/* --- チャート全体レイアウト --- */
+.chart-wrapper {
+    display: flex;
+    overflow: hidden; 
+    border-top: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    background-color: #fff;
+    max-height: 80vh;
+    min-width: 100%; 
+}
+
+/* --- Y軸ラベル固定エリア (左側) --- */
+.y-axis-fixed {
+    position: sticky; 
+    left: 0;
+    top: 0;
+    z-index: 60; 
+    background-color: #f9f9f9; 
+    width: 180px; 
+    flex-shrink: 0;
+    overflow-y: hidden;
+    height: 100%; 
+}
+
+/* Y軸ヘッダー */
+.y-axis-header {
+    padding: 0 10px; 
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
+    height: 40px; 
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    background-color: #f9f9f9; 
+    z-index: 61;
+    border-right: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* Y軸ラベルコンテナ */
+#y-axis-labels {
+    display: flex;
+    flex-direction: column;
+    will-change: transform;
+}
+
+/* 各Y軸ラベル */
+.y-axis-label {
+    padding: 0 5px; 
+    border-bottom: 1px solid #eee;
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    border-right: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    box-sizing: border-box; 
+    background-color: #f8f8f8; 
+    transition: background-color 0.2s;
+}
+.y-axis-label.clickable:hover {
+    background-color: #e0e8f0; 
+    cursor: pointer;
+    text-decoration: underline;
+    color: #0056b3;
+}
+.y-axis-label.spacer-row-gap {
+    background-color: #f9f9f9 !important; 
+    border-top: 1px solid #666 !important; 
+    border-bottom: none !important;
+    border-right: none !important;         
+    border-left: none !important;
+}
+.y-axis-label.spacer-row-title {
+    background-color: #f9f9f9 !important; 
+    border-top: none !important;
+    border-bottom: none !important;
+    border-right: none !important;
+    border-left: none !important;
+    font-weight: bold;
+    font-size: 11px;
+    color: #333;
+    justify-content: center !important;
+    padding: 0 5px !important;
+}
+.y-axis-label.party-role-top-row {
+    border-top: 1px solid #666 !important;
+}
+
+/* --- グラフスクロールエリア (右側) --- */
+.chart-scroll-area {
+    overflow: scroll;
+    flex-grow: 1;
+}
+
+/* X軸タイムライン */
+#x-axis-timeline {
+    height: 40px; 
+    position: sticky; 
+    top: 0; 
+    z-index: 60;
+    border-bottom: 1px solid #ccc;
+    background-color: #e5e5e5;
+    white-space: nowrap; 
+}
+.x-axis-mark {
+    position: absolute;
+    top: 0;
+    font-size: 10px;
+    color: #666;
+    height: 100%;
+    border-left: 1px solid transparent; 
+}
+.x-axis-mark span {
+    position: absolute;
+    top: 5px;
+    left: 0;
+    transform: translateX(-50%);
+    font-size: 10px;
+}
+.x-axis-mark.minor::before { content: ''; position: absolute; top: 25px; left: -1px; height: 5px; border-left: 1px solid #aaa; }
+.x-axis-mark.medium::before { content: ''; position: absolute; top: 20px; left: -1px; height: 10px; border-left: 1px solid #888; }
+.x-axis-mark.major { color: #000; font-weight: bold; height: 100%; border-left: 1px solid #666; }
+.x-axis-mark.major::before { content: ''; position: absolute; top: 20px; left: -1px; height: 20px; border-left: 1px solid #666; }
+
+/* プロットエリア */
+#chart-plot-area {
+    position: relative;
+}
+
+/* グラフバー (Main Chart) */
+.chart-bar {
+    position: absolute;
+    background-color: #4682b4;
+    border-radius: 4px;
+    opacity: 0.9;
+    font-size: 10px;
+    color: white; 
+    font-weight: bold;
+    text-align: center;
+    overflow: hidden; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: help;
+    box-sizing: border-box; 
+    line-height: 1.1; 
+}
+.chart-bar.non-pm {
+    color: #000; 
+}
+.chart-bar.deputy-pm-bar {
+    font-weight: 900; 
+    border-width: 2px;
+    border-color: #333;
+}
+
+/* 現職（PM以外）: 枠線のみのグラデーション */
+.chart-bar.incumbent.non-pm {
+    border-style: solid;
+    border-width: 2px;
+    border-right: 0;
+    border-image: linear-gradient(to right, #4682b4 10%, rgba(70, 130, 180, 0) 100%) 1;
+    background-color: white !important;
+    color: #000 !important;
+    border-radius: 0 !important;
+}
+
+/* 現職（PM経験者）: 背景色グラデーション（右枠線なし） */
+.chart-bar.incumbent.highlight-pm {
+    border-right: none !important;
+}
+
+/* 現職の氏名表示強制 */
+.chart-bar.force-full-name {
+    overflow: visible !important;
+    white-space: nowrap !important;
+    justify-content: flex-start !important;
+    padding-left: 4px;
+    text-align: left !important;
+    z-index: 50;
+}
+
+.chart-bar.font-tiny {
+    font-size: 8px; 
+    font-weight: normal;
+    line-height: 1;
+}
+.chart-bar.vertical-text-lastname {
+    writing-mode: vertical-rl; 
+    text-orientation: mixed;   
+    font-size: 6px;            
+    letter-spacing: normal;    
+    white-space: nowrap;       
+    line-height: 1;
+}
+
+/* --- カスタムツールチップ --- */
+#custom-tooltip {
+    position: absolute;
+    display: none;
+    background-color: rgba(20, 20, 20, 0.9);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-family: -apple-system, BlinkMacSystemFont, Meiryo, sans-serif;
+    z-index: 3000;
+    pointer-events: none;
+    line-height: 1.6;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    max-width: 300px;
+}
+#custom-tooltip .tooltip-name {
+    font-size: 15px;
+    font-weight: bold;
+    color: #ffffff;
+    white-space: nowrap;
+}
+#custom-tooltip .tooltip-deputy {
+    font-weight: bold;
+    color: #f5d342;
+    white-space: nowrap;
+}
+#custom-tooltip .tooltip-post {
+    font-size: 13px;
+    color: #eeeeee;
+    white-space: normal;
+}
+#custom-tooltip .tooltip-kennin {
+    font-size: 12px;
+    color: #cccccc;
+    border-top: 1px solid #444;
+    padding-top: 6px;
+    margin-top: 6px;
+    white-space: normal;
+}
+#custom-tooltip .tooltip-period {
+    font-size: 12px;
+    color: #a0a0a0;
+    margin-top: 8px;
+    white-space: nowrap;
+}
+
+/* --- サイドバーとオーバーレイ共通 --- */
+#global-overlay { 
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 1999;
+}
+#global-overlay.open { 
+    display: block;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #eee;
+    background-color: #f9f9f9;
+}
+.sidebar-header h2 {
+    margin: 0;
+    font-size: 18px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.close-sidebar-btn {
+    font-size: 28px;
+    font-weight: 300;
+    color: #888;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0 5px;
+    line-height: 1;
+}
+.close-sidebar-btn:hover {
+    color: #000;
+}
+
+.sidebar-content {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 0;
+}
+
+/* --- 右側サイドバー (詳細用) --- */
+#details-sidebar {
+    position: fixed;
+    top: 0;
+    right: -560px;
+    width: 550px;
+    height: 100%;
+    background-color: #ffffff;
+    box-shadow: -4px 0 15px rgba(0,0,0,0.1);
+    z-index: 2000;
+    transition: right 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+}
+#details-sidebar.open {
+    right: 0;
+}
+
+/* タイムラインコンテナ */
+.sidebar-timeline-container {
+    padding: 20px 10px;
+    position: relative;
+}
+
+/* 時系列の一貫した線（コンテナに対する擬似要素で描画） */
+.sidebar-timeline-container::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    bottom: var(--line-end-offset, 20px);
+    left: 123px; /* timeline-left width (110px) + padding-right (15px) - border adjustment (~2px) */
+    width: 2px;
+    background-color: #d0d0d0;
+    z-index: 0;
+}
+
+/* タイムラインの各ブロック（行） */
+.timeline-block {
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+}
+
+/* 1. 左カラム：時系列（日付） */
+.timeline-left {
+    width: 110px;
+    flex-shrink: 0;
+    text-align: right;
+    padding-right: 15px;
+    position: relative;
+    box-sizing: border-box;
+}
+
+/* 日付ラベルの基本スタイル */
+.timeline-date-label {
+    font-family: 'Consolas', 'Monaco', sans-serif;
+    font-size: 11px; 
+    color: #555;
+    line-height: 1;
+    position: absolute;
+    right: 15px; /* バーの左側 */
+    white-space: nowrap;
+    background-color: rgba(255,255,255,0.9); 
+    z-index: 5;
+    padding: 1px 3px;
+    border-radius: 2px;
+}
+
+/* 就任日: バーの上端から下へ */
+.timeline-date-label.start-date {
+    transform: translateY(0);
+}
+
+/* 退任日/交代日: バーの下端から上へ */
+.timeline-date-label.end-date {
+    transform: translateY(-100%);
+}
+
+/* 2. 中央カラム：バーエリア */
+.timeline-center {
+    width: 30px;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 0;
+    /* 個別のボーダーは削除 */
+    border-left: none; 
+}
+
+/* 実績バー (Sidebar) */
+.timeline-bar {
+    width: 10px;
+    background-color: #4682b4; 
+    z-index: 10; 
+    border-radius: 4px; 
+    position: absolute;
+    left: -4px; /* 線の上に重ねる */
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}
+
+/* カテゴリ別の色 */
+.bar-party { background-color: #27ae60; z-index: 11; }
+.bar-cabinet { background-color: #2c3e50; z-index: 12; }
+.bar-diet { background-color: #7f8c8d; z-index: 11; }
+.bar-local { background-color: #e67e22; z-index: 11; }
+
+/* 各カテゴリの現職用グラデーション（下方向へ透明） */
+.bar-party.incumbent { background: linear-gradient(to bottom, #27ae60 30%, rgba(39, 174, 96, 0) 100%); }
+.bar-cabinet.incumbent { background: linear-gradient(to bottom, #2c3e50 30%, rgba(44, 62, 80, 0) 100%); }
+.bar-diet.incumbent { background: linear-gradient(to bottom, #7f8c8d 30%, rgba(127, 140, 141, 0) 100%); }
+.bar-local.incumbent { background: linear-gradient(to bottom, #e67e22 30%, rgba(230, 126, 34, 0) 100%); }
+
+/* 兼任などでレーンをずらす場合 */
+.lane-0 { } 
+.lane-1 { left: 14px !important; z-index: 9 !important; }
+.lane-2 { left: 28px !important; z-index: 8 !important; }
+.lane-3 { left: 42px !important; z-index: 7 !important; }
+
+/* 内閣総理大臣強調用 */
+.highlight-pm .timeline-bar {
+    background-color: #c0392b !important; 
+    z-index: 20 !important; 
+}
+.highlight-pm .timeline-bar.incumbent {
+    background: linear-gradient(to bottom, #c0392b 30%, rgba(192, 57, 43, 0) 100%) !important;
+}
+
+.highlight-pm .timeline-role-name {
+    color: #c0392b;
+    font-weight: 900;
+    text-decoration: underline;
+    font-size: 1.1em;
+}
+
+/* 3. 右カラム：テキスト情報 */
+.timeline-right {
+    flex-grow: 1;
+    padding-left: 15px;
+    padding-bottom: 5px; 
+    position: relative;
+}
+
+/* 役職名などのテキストラッパー */
+.timeline-text-item {
+    position: absolute;
+    width: 100%;
+    line-height: 1.3;
+}
+
+/* 役職名 */
+.timeline-role-name {
+    font-size: 14px;
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 2px;
+}
+
+/* 内閣名・補足情報など */
+.timeline-cabinet-name {
+    font-size: 11px;
+    color: #666;
+    margin-bottom: 2px;
+}
+.timeline-cabinet-name span {
+    margin-right: 8px;
+}
+
+.president-info {
+    display: block;
+    font-size: 11px;
+    color: #555;
+    margin-top: 1px;
+}
+
+.role-deputy {
+    font-size: 10px; 
+    border: 1px solid #c0392b; 
+    color: #c0392b; 
+    padding: 0 2px; 
+    border-radius: 2px;
+    margin-left: 5px;
+    font-weight: normal;
+}
+
+/* スペーサー */
+.timeline-spacer {
+    display: flex;
+    width: 100%;
+}
+.timeline-spacer .timeline-center {
+    position: relative;
+}
+
+/* --- 左側サイドバー (ランキング用) --- */
+#ranking-sidebar {
+    position: fixed;
+    top: 0;
+    left: -410px;
+    width: 400px;
+    height: 100%;
+    background-color: #ffffff;
+    box-shadow: 4px 0 15px rgba(0,0,0,0.1);
+    z-index: 2000;
+    transition: left 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+}
+#ranking-sidebar.open {
+    left: 0;
+}
+
+.ranking-mode-toggle {
+    display: flex;
+    border-bottom: 1px solid #eee;
+    background-color: #f9f9f9;
+    padding: 10px 10px 0 10px;
+    justify-content: center;
+}
+.toggle-btn-rank {
+    flex: 1;
+    padding: 10px 12px;
+    font-size: 13px; 
+    background-color: transparent;
+    color: #555;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    border-bottom: none; 
+    border-radius: 5px 5px 0 0; 
+    margin: 0 2px; 
+    white-space: nowrap;
+}
+.toggle-btn-rank.active {
+    background-color: #fff;
+    font-weight: bold;
+    color: #007bff;
+    border-bottom: 1px solid #fff; 
+    margin-bottom: -1px;
+    z-index: 1;
+}
+
+.ranking-scope-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 8px;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    background-color: #fff; 
+}
+.ranking-scope-grid.hidden {
+    display: none;
+}
+
+.scope-btn {
+    padding: 10px;
+    font-size: 13px;
+    background-color: #f9f9f9;
+    color: #555;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+}
+.scope-btn.active {
+    background-color: #333;
+    color: #fff;
+    border-color: #333;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+.scope-btn.active:hover {
+    background-color: #333;
+}
+.scope-btn:hover {
+    background-color: #eee;
+}
+
+#ranking-sidebar-content ol {
+    padding-left: 25px;
+    margin: 0;
+}
+.ranking-item {
+    padding: 8px 0;
+    font-size: 14px;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+.ranking-item:last-child {
+    border-bottom: none;
+}
+.ranking-name-link {
+    font-weight: 500;
+    color: #0056b3;
+    text-decoration: underline;
+    cursor: pointer;
+    flex-grow: 1;
+}
+.ranking-name-link:hover {
+    color: #007bff;
+}
+.ranking-value {
+    font-weight: bold;
+    font-size: 15px;
+    color: #000;
+    flex-shrink: 0;
+}

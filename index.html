@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>政治家役職要覧</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="page-header">
+        <div class="header-left">
+            <h1>政治家役職要覧</h1>
+            
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="氏名を検索..." autocomplete="off">
+                <div id="search-results" class="search-results"></div>
+            </div>
+        </div>
+        
+        <div class="header-center">
+            <div class="main-filter-group">
+                <button class="main-filter-btn active" data-filter="cabinet">内閣</button>
+                <button class="main-filter-btn active" data-filter="diet">国会</button>
+                <button class="main-filter-btn active" data-filter="party">政党</button>
+                <button class="main-filter-btn active" data-filter="local">地方自治体</button>
+            </div>
+            <div id="party-filter-container" style="display: block; margin-left: 10px;">
+                <select id="party-select">
+                    <option value="all">全政党</option>
+                    </select>
+            </div>
+        </div>
+
+        <div class="header-right">
+            <div class="zoom-controls">
+                <span class="zoom-label">表示サイズ:</span>
+                <button id="btn-zoom-out" class="zoom-btn" title="縮小">-</button>
+                <button id="btn-zoom-reset" class="zoom-btn" title="リセット">100%</button>
+                <button id="btn-zoom-in" class="zoom-btn" title="拡大">+</button>
+            </div>
+            <div class="ranking-controls">
+                <button id="btn-global-ranking" class="ranking-btn">総合在任ランキング</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="chart-wrapper">
+        <div class="y-axis-fixed">
+            <div class="y-axis-header">役職名</div>
+            <div id="y-axis-labels">
+                </div>
+        </div>
+
+        <div class="chart-scroll-area">
+            <div id="x-axis-timeline">
+                </div>
+            <div id="chart-plot-area">
+                </div>
+        </div>
+    </div>
+
+    <div id="global-overlay"></div>
+
+    <div id="details-sidebar" class="sidebar-right">
+        <div class="sidebar-header">
+            <h2 id="sidebar-title">詳細</h2>
+            <button id="close-details-sidebar-btn" class="close-sidebar-btn" title="閉じる">&times;</button>
+        </div>
+        <div id="sidebar-content" class="sidebar-content">
+            </div>
+    </div>
+
+    <div id="ranking-sidebar" class="sidebar-left">
+        <div class="sidebar-header">
+            <h2 id="ranking-sidebar-title">ランキング</h2>
+            <button id="close-ranking-sidebar-btn" class="close-sidebar-btn" title="閉じる">&times;</button>
+        </div>
+        
+        <div class="ranking-mode-toggle">
+            <button id="btn-rank-mode-days" class="toggle-btn-rank active">在任日数</button>
+            <button id="btn-rank-mode-appearance" class="toggle-btn-rank">就任回数</button>
+            </div>
+        
+        <div id="ranking-scope-toggle" class="ranking-scope-grid">
+            <button class="scope-btn active" data-category="cabinet">内閣</button>
+            <button class="scope-btn active" data-category="party">政党</button>
+            <button class="scope-btn" data-category="diet">国会</button>
+            <button class="scope-btn" data-category="local">地方</button>
+        </div>
+
+        <div id="ranking-sidebar-content" class="sidebar-content">
+            </div>
+    </div>
+    
+    <script src="minister_data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
